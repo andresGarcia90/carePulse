@@ -9,13 +9,14 @@ import CustomFormField from '../CustomFormField';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import SubmitButton from '../SubmitButton';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const PatienceForm = () => {
-  const formSchema = z.object({
-    name: z.string().min(2, {
-      message: 'Username must be at least 2 characters.',
-    }),
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  // const router = useRouter();
+  const formSchema = UserFormValidation;
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(formSchema),
@@ -26,8 +27,16 @@ const PatienceForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof UserFormValidation>) {
-    console.log(values);
+  async function onSubmit({name, email, phone}: z.infer<typeof UserFormValidation>) {
+    setIsLoading(true);
+    try {
+      // const userData = {name, email, phone};
+      // const user = await crateUser(userData);
+      // if (user)  router.push(`/patients/${user.id}/register`);
+    } catch (error) { 
+      console.log(error);
+      
+    }
   }
 
   return (
@@ -66,7 +75,7 @@ const PatienceForm = () => {
           placeholder="(555) 123-4567"
         />
 
-        <Button type="submit">Submit</Button>
+      <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   );
