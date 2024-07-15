@@ -6,3 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+
+export const convertFilesToUrls = (file: File) => {
+  return URL.createObjectURL(file)
+}
