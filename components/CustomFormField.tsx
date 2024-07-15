@@ -12,9 +12,18 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import ReactDatePicker from "react-datepicker";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 import { FormFieldType } from "../lib/Type"
 import { Input } from "./ui/input";
 import "react-datepicker/dist/react-datepicker.css";
+import { Textarea } from "./ui/textarea";
 
 
 interface CustomProps {
@@ -34,7 +43,7 @@ interface CustomProps {
 
 
 const RenderInput = ({field, props} : {field: any, props: CustomProps}) => {
-  const {fieldType, iconSrc, iconAlt, placeholder, showTimeSelect, dateFormat, renderSkeleton} = props
+  const {fieldType, iconSrc, iconAlt, placeholder, showTimeSelect, dateFormat, children, renderSkeleton} = props
   switch (fieldType) {
     case FormFieldType.INPUT:
       return(
@@ -95,7 +104,32 @@ const RenderInput = ({field, props} : {field: any, props: CustomProps}) => {
       )
     case FormFieldType.SKELETON:
       return renderSkeleton ? renderSkeleton(field) : null
+    case FormFieldType.SELECT:
+      return(
+        <FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          {/* <FormControl> */}
+              <SelectTrigger className="shad-select-trigger">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            {/* </FormControl> */}
+            <SelectContent className="shad-select-content">
+              {children}
+            </SelectContent>
+          </Select>
+        </FormControl>
+      )
+    case FormFieldType.TEXTAREA:
+      return(
+        <FormControl>
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            className="shad-input border-0"
+          />
 
+        </FormControl>
+      )
     default:
       break;
   }
