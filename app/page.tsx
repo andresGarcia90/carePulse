@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import PatienceForm from "@/components/forms/PatienceForm";
+import PasskeyModal from "@/components/PasskeyModal";
 
-export default function Home() {
+export default function Home({ searchParams }: SearchParamProps) {
+  const admin = searchParams?.admin === "true";
+
   return (
+    <>
+  {admin && <PasskeyModal />}
    <div className="flex h-screen max-h-screen">
     <section className="remove-screollbar container my-auto">
       {/* Todo: add otp verification */}
@@ -31,5 +36,6 @@ export default function Home() {
       className="side-img max-w-[50%]"
     />
    </div>
+    </>
   );
 }
