@@ -28,3 +28,9 @@ declare interface RegisterUserParams extends CreateUserParams {
   identificationDocument: FormData | undefined;
   privacyConsent: boolean;
 }
+declare type UpdateAppointmentParams = {
+  appointmentId: string;
+  userId: string;
+  appointment: Appointment;
+  type: string;
+};
